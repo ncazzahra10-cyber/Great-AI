@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Taga Studio v4.9.5 - Precision Prime</title>
+    
+    <title>Taga Studio v5.3.0 | Precision Grid</title>
+    <meta name="description" content="Manajemen AI dengan grid data presisi dan interval kustom.">
+    <meta name="theme-color" content="#02040a">
+
+    <!-- Web Icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%2300ffcc' d='M21 16.5c0 .38-.21.71-.53.88l-7.97 4.43c-.31.17-.69.17-1 0l-7.97-4.43c-.32-.17-.53-.5-.53-.88v-9c0-.38.21-.71.53-.88l7.97-4.43c.31-.17.69-.17 1 0l7.97 4.43c.32.17.53.5.53.88v9Z'/></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     
-    <!-- Syntax Highlighting -->
+    <!-- Code Highlight -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     
@@ -21,7 +28,8 @@
                         dark: '#02040a',
                         hyper: '#00ffcc',
                         accent: '#f43f5e',
-                        surface: '#0d1117'
+                        surface: '#0d1117',
+                        card: '#161b22'
                     }
                 }
             }
@@ -39,83 +47,92 @@
             display: flex; 
             flex-direction: column;
         }
-        .glass { background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(40px); border: 1px solid rgba(0, 255, 204, 0.1); }
+        .glass { background: rgba(13, 17, 23, 0.85); backdrop-filter: blur(25px); border: 1px solid rgba(0, 255, 204, 0.1); }
         #chat-box { flex: 1; overflow-y: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         
-        /* Prime Precision Code Engine */
-        .code-container { margin: 1.25rem 0; border-radius: 12px; background: #010204; border: 1px solid rgba(0, 255, 204, 0.2); overflow: hidden; }
-        .code-nav { background: rgba(0, 255, 204, 0.05); padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 255, 204, 0.1); }
-        .code-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 800; color: #00ffcc; text-transform: uppercase; letter-spacing: 1px; }
-        pre code.hljs { padding: 1.25rem !important; font-family: 'JetBrains Mono', monospace !important; font-size: 0.8rem !important; line-height: 1.6 !important; background: transparent !important; }
-
-        /* Text Element Precision */
+        /* Markdown Styling */
         .msg-text { font-size: 0.95rem; line-height: 1.7; color: #e2e8f0; word-break: break-word; }
-        .msg-text b { color: #fff; font-weight: 700; }
-        .msg-text i { color: #cbd5e1; font-style: italic; }
-        .msg-text code.inline { background: rgba(0, 255, 204, 0.1); color: #00ffcc; padding: 2px 6px; border-radius: 5px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; border: 1px solid rgba(0, 255, 204, 0.15); }
-        
-        /* List Styling */
-        .msg-text ul, .msg-text ol { padding-left: 1.5rem; margin: 0.75rem 0; }
-        .msg-text ul li { list-style-type: disc; margin-bottom: 0.4rem; }
-        .msg-text ol li { list-style-type: decimal; margin-bottom: 0.4rem; }
-        .msg-text .bullet-item { display: flex; gap: 0.75rem; margin-bottom: 0.4rem; }
-        .msg-text .bullet-point { color: #00ffcc; flex-shrink: 0; }
+        .msg-text b { color: #fff; font-weight: 800; }
+        .msg-text .bullet-item { display: flex; gap: 0.75rem; margin-bottom: 0.5rem; }
+        .msg-text .bullet-point { color: #00ffcc; flex-shrink: 0; font-weight: bold; }
+        code.inline { background: rgba(0, 255, 204, 0.1); color: #00ffcc; padding: 2px 6px; border-radius: 5px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
 
-        .animate-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards; }
-        @keyframes pop { from { opacity: 0; transform: scale(0.98) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        /* Animations */
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
-        .tab-active { background: #00ffcc; color: #000; box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2); }
-        .tab-inactive { color: #64748b; }
-        
+        .toast-active { transform: translateY(0); opacity: 1; }
+        .toast-hidden { transform: translateY(100px); opacity: 0; }
+
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #00ffcc15; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #00ffcc22; border-radius: 10px; }
+
+        .btn-prime { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-prime:active { transform: scale(0.95); filter: brightness(0.9); }
+        
+        .modal-overlay { background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); }
+        
+        .nav-tab { position: relative; transition: all 0.3s ease; cursor: pointer; }
+        .nav-tab.active { color: #00ffcc; }
+        .nav-tab.active::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 12px; height: 3px; background: #00ffcc; border-radius: 10px; box-shadow: 0 0 10px #00ffcc; }
+
+        /* Custom Range Slider */
+        input[type=range] { -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { background: rgba(255,255,255,0.05); height: 6px; border-radius: 10px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #00ffcc; cursor: pointer; margin-top: -6px; box-shadow: 0 0 10px rgba(0,255,204,0.4); }
     </style>
 </head>
 <body class="p-2 sm:p-4">
 
-    <div class="max-w-6xl mx-auto w-full h-full flex flex-col">
+    <div class="max-w-6xl mx-auto w-full h-full flex flex-col relative">
         <!-- HEADER -->
-        <header class="flex flex-wrap justify-between items-center mb-4 gap-3 px-2">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-surface border border-hyper/20 rounded-xl flex items-center justify-center">
-                    <iconify-icon icon="solar:shield-star-bold" class="text-hyper text-2xl"></iconify-icon>
+        <header class="flex flex-col sm:flex-row justify-between items-center mb-4 px-2 py-2 gap-4">
+            <div class="flex items-center gap-3 self-start">
+                <div class="w-10 h-10 bg-surface border border-hyper/20 rounded-xl flex items-center justify-center shadow-lg">
+                    <iconify-icon icon="solar:box-minimalistic-bold-duotone" class="text-hyper text-2xl"></iconify-icon>
                 </div>
                 <div>
-                    <h1 class="font-black text-white text-xl tracking-tighter uppercase leading-none">PRIME<span class="text-hyper ml-1">V4.9.5</span></h1>
-                    <p class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase opacity-50 mt-1">Precision Markdown Engine</p>
+                    <h1 class="font-black text-white text-lg tracking-tighter uppercase leading-none">TAGA<span class="text-hyper ml-0.5">STUDIO</span></h1>
+                    <p class="text-[8px] font-bold text-slate-500 tracking-[0.2em] uppercase mt-1">v5.3.0 Precision</p>
                 </div>
             </div>
-            
-            <div class="flex items-center gap-2">
-                <div class="flex bg-surface/80 p-1 rounded-xl border border-white/5 backdrop-blur-md">
-                    <button onclick="switchView('chat')" id="tab-chat" class="px-4 py-1.5 rounded-lg text-[10px] font-black tab-active transition-all">CHATS</button>
-                    <button onclick="switchView('drone')" id="tab-drone" class="px-4 py-1.5 rounded-lg text-[10px] font-black tab-inactive transition-all uppercase">Drone</button>
-                </div>
-                <button onclick="openAuth()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface border border-white/10 hover:border-hyper transition-all">
-                    <iconify-icon icon="solar:key-minimalistic-bold" id="key-status" class="text-slate-500 text-xl"></iconify-icon>
+
+            <!-- Main Tabs -->
+            <div class="flex bg-surface/50 p-1.5 rounded-2xl border border-white/5 backdrop-blur-md items-center shadow-inner">
+                <button onclick="switchView('chat')" id="tab-chat" class="nav-tab active px-6 py-2 text-[10px] font-black tracking-widest uppercase">Chat</button>
+                <div class="w-[1px] h-4 bg-white/10 mx-1"></div>
+                <button onclick="switchView('drone')" id="tab-drone" class="nav-tab px-6 py-2 text-[10px] font-black tracking-widest uppercase text-slate-500">Harvest</button>
+            </div>
+
+            <!-- Utility Actions -->
+            <div class="flex items-center gap-2 self-end sm:self-center">
+                <button onclick="copyEmbed()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface border border-white/5 text-slate-400 hover:text-hyper transition-colors btn-prime">
+                    <iconify-icon icon="solar:share-circle-bold-duotone" class="text-xl"></iconify-icon>
+                </button>
+                <button onclick="openAuth()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface border border-white/5 text-slate-400 hover:text-hyper transition-colors btn-prime">
+                    <iconify-icon icon="solar:settings-bold-duotone" id="key-status" class="text-xl"></iconify-icon>
                 </button>
             </div>
         </header>
 
-        <!-- MAIN VIEW -->
-        <main class="flex-1 relative min-h-0">
-            <!-- CHAT VIEW -->
-            <div id="view-chat" class="h-full flex flex-col animate-pop">
-                <div class="glass rounded-[2rem] overflow-hidden flex flex-col h-full shadow-2xl border-white/5">
-                    <div id="chat-box" class="p-5 sm:p-10 space-y-8">
-                        <!-- Welcome -->
+        <!-- MAIN VIEWPORT -->
+        <main class="flex-1 min-h-0 relative">
+            <!-- VIEW: CHAT -->
+            <div id="view-chat" class="h-full flex flex-col animate-slide-up">
+                <div class="glass rounded-[2.5rem] overflow-hidden flex flex-col h-full shadow-2xl">
+                    <div id="chat-box" class="p-4 sm:p-10 space-y-8">
                         <div class="flex gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-hyper/10 flex items-center justify-center flex-shrink-0">
-                                <iconify-icon icon="solar:ghost-bold" class="text-hyper text-xl"></iconify-icon>
+                            <div class="w-10 h-10 rounded-xl bg-hyper/10 flex items-center justify-center flex-shrink-0 border border-hyper/20">
+                                <iconify-icon icon="solar:ghost-bold-duotone" class="text-hyper text-2xl"></iconify-icon>
                             </div>
-                            <div class="bg-white/5 p-6 rounded-2xl rounded-tl-none border border-white/5 max-w-[90%]">
+                            <div class="bg-card p-5 sm:p-7 rounded-3xl rounded-tl-none border border-white/5 max-w-[90%] shadow-xl">
                                 <div class="msg-text">
-                                    <b>Selamat datang di Precision Prime.</b><br>
-                                    Mesin parser telah diperbarui untuk menangani:<br>
-                                    • Penomoran otomatis (1. 2. 3.)<br>
-                                    • Poin/Bullet (* atau •)<br>
-                                    • Format tebal (**) dan miring (*)<br>
-                                    • Blok kode tanpa tabrakan inline.
+                                    <b>Update v5.3.0 Precision Grid Aktif.</b><br>
+                                    Fitur Baru:<br>
+                                    • <b>Interval Kustom</b> (1 detik - 10 detik).<br>
+                                    • <b>Grid Presisi</b>: Kartu data kini memiliki ukuran yang seragam.<br>
+                                    • <b>UI Scanner</b>: Panel kontrol panen lebih informatif.
                                 </div>
                             </div>
                         </div>
@@ -123,145 +140,203 @@
                     
                     <div class="p-4 sm:p-6 bg-dark/40 border-t border-white/5 backdrop-blur-xl">
                         <div class="flex gap-3 items-end max-w-4xl mx-auto">
-                            <div class="flex-1 bg-surface/50 rounded-2xl border border-white/10 p-1 flex items-center min-h-[54px] focus-within:border-hyper/30">
-                                <textarea id="chat-input" rows="1" class="w-full bg-transparent border-none outline-none text-sm px-4 py-2 resize-none text-white placeholder:text-slate-600" placeholder="Ketik perintah..." oninput="autoExpand(this)"></textarea>
+                            <div class="flex-1 bg-surface/80 rounded-2xl border border-white/10 p-1 flex items-center min-h-[56px] focus-within:border-hyper/40 transition-all">
+                                <textarea id="chat-input" rows="1" class="w-full bg-transparent border-none outline-none text-sm px-5 py-2.5 resize-none text-white placeholder:text-slate-600" placeholder="Ketik pesan..." oninput="autoExpand(this)"></textarea>
                             </div>
-                            <button onclick="handleSend()" class="w-14 h-14 bg-hyper hover:brightness-110 active:scale-95 rounded-2xl flex items-center justify-center shadow-lg shadow-hyper/10 flex-shrink-0">
-                                <iconify-icon icon="solar:rocket-bold" class="text-black text-2xl"></iconify-icon>
+                            <button onclick="handleSend()" class="w-14 h-14 bg-hyper hover:brightness-110 active:scale-90 rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(0,255,204,0.2)] flex-shrink-0 btn-prime">
+                                <iconify-icon icon="solar:rocket-bold-duotone" class="text-black text-2xl"></iconify-icon>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- DRONE VIEW -->
-            <div id="view-drone" class="hidden h-full animate-pop flex flex-col overflow-hidden">
-                <div class="flex flex-col lg:grid lg:grid-cols-12 gap-6 h-full pb-6 min-h-0">
-                    <div class="lg:col-span-4 space-y-4 flex flex-col">
-                        <div class="glass p-6 rounded-[2rem] space-y-4">
+            <!-- VIEW: DRONE -->
+            <div id="view-drone" class="hidden h-full flex flex-col animate-slide-up">
+                <div class="flex flex-col lg:grid lg:grid-cols-12 gap-5 h-full min-h-0">
+                    <!-- Control Sidebar -->
+                    <div class="lg:col-span-4 flex flex-col gap-4">
+                        <div class="glass p-7 rounded-[2.5rem] space-y-6">
                             <div class="flex justify-between items-center">
-                                <h3 class="text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
-                                    <iconify-icon icon="solar:globus-bold" class="text-hyper text-lg"></iconify-icon> Harvest Engine
-                                </h3>
-                                <div id="drone-led" class="w-2 h-2 rounded-full bg-slate-800"></div>
+                                <span class="text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                                    <iconify-icon icon="solar:scanner-bold-duotone" class="text-hyper text-xl"></iconify-icon> Sensor Control
+                                </span>
+                                <div id="drone-led" class="w-2.5 h-2.5 rounded-full bg-slate-800 transition-all duration-300"></div>
                             </div>
-                            <input type="text" id="drone-topic" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-xs text-white outline-none focus:border-hyper/30" placeholder="Topik Panen...">
-                            <div class="flex gap-2">
-                                <button id="drone-btn" onclick="toggleDrone()" class="flex-1 bg-hyper py-4 rounded-xl font-black text-black text-[10px] uppercase tracking-widest">START</button>
-                                <button onclick="openManage()" class="px-5 bg-surface border border-white/10 rounded-xl text-white flex items-center justify-center">
-                                    <iconify-icon icon="solar:checklist-bold" class="text-xl"></iconify-icon>
-                                </button>
+                            
+                            <div class="space-y-5">
+                                <div class="space-y-2">
+                                    <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Topic Cluster</p>
+                                    <input type="text" id="drone-topic" class="w-full bg-black/40 border border-white/5 rounded-xl p-4 text-xs text-white outline-none focus:border-hyper/30 transition-all" placeholder="Masukkan topik...">
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Interval Scan</p>
+                                        <span id="interval-val" class="text-[10px] font-black text-hyper">3s</span>
+                                    </div>
+                                    <input type="range" id="drone-interval" min="1" max="10" value="3" step="1" class="w-full" oninput="document.getElementById('interval-val').innerText = this.value + 's'">
+                                </div>
+
+                                <div class="flex gap-2 pt-2">
+                                    <button id="drone-btn" onclick="toggleDrone()" class="flex-1 bg-hyper py-4 rounded-xl font-black text-black text-[10px] uppercase tracking-widest btn-prime">Launch</button>
+                                    <button onclick="openManage()" class="w-14 bg-surface border border-white/10 rounded-xl text-white flex items-center justify-center btn-prime">
+                                        <iconify-icon icon="solar:folder-favourite-bold-duotone" class="text-2xl"></iconify-icon>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div id="drone-log" class="hidden lg:block flex-1 bg-black/60 p-5 rounded-[2rem] overflow-y-auto font-mono text-[9px] text-slate-500 space-y-1 border border-white/5">
-                            <div>> System Ready.</div>
+                        
+                        <div id="drone-log" class="hidden lg:block flex-1 bg-black/60 p-6 rounded-[2.5rem] overflow-y-auto font-mono text-[9px] text-slate-500 space-y-1.5 border border-white/5">
+                            <div class="opacity-20">> Waiting for sequence...</div>
                         </div>
                     </div>
+
+                    <!-- Data Grid Area -->
                     <div class="lg:col-span-8 flex flex-col min-h-0">
-                        <div id="data-grid" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-4 pr-2 pb-10"></div>
+                        <div id="data-grid" class="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 pb-12 pr-1">
+                            <!-- Placeholder -->
+                            <div class="col-span-full h-full flex items-center justify-center text-slate-700 opacity-20 flex-col gap-4">
+                                <iconify-icon icon="solar:box-minimalistic-bold-duotone" class="text-6xl"></iconify-icon>
+                                <p class="text-[10px] font-black uppercase tracking-[0.3em]">No Data Cached</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- MODALS -->
-    <div id="auth-modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[200] hidden items-center justify-center p-6">
-        <div class="bg-surface border border-white/10 w-full max-w-xs p-10 rounded-[2.5rem] animate-pop text-center">
-            <h2 class="font-black text-white text-lg mb-6 uppercase tracking-widest">Enter API Key</h2>
-            <input type="password" id="api-key-input" class="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-xs text-hyper text-center outline-none mb-6" placeholder="Groq GSK_...">
-            <button onclick="saveAuth()" class="w-full bg-hyper py-4 rounded-xl font-black text-black text-[11px] uppercase shadow-xl shadow-hyper/20">Initialize</button>
+    <!-- MODAL: AUTH -->
+    <div id="auth-modal" class="fixed inset-0 modal-overlay z-[500] hidden items-center justify-center p-6">
+        <div class="bg-surface border border-white/10 w-full max-w-sm p-8 sm:p-10 rounded-[3rem] animate-slide-up text-center relative">
+            <button onclick="closeAuth()" class="absolute top-6 right-6 text-slate-500 hover:text-white transition-all">
+                <iconify-icon icon="solar:close-circle-bold" class="text-3xl"></iconify-icon>
+            </button>
+            <div class="w-16 h-16 bg-hyper/10 rounded-2xl flex items-center justify-center mx-auto mb-8 border border-hyper/20">
+                <iconify-icon icon="solar:key-bold-duotone" class="text-hyper text-4xl"></iconify-icon>
+            </div>
+            <h2 class="font-black text-white text-xl mb-2 uppercase tracking-tight">Access Gate</h2>
+            <p class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-8">Groq Platform Credentials</p>
+            <input type="password" id="api-key-input" class="w-full bg-black/50 border border-white/10 rounded-xl p-5 text-sm text-hyper text-center outline-none mb-8 placeholder:text-slate-800" placeholder="GSK Key...">
+            <div class="flex flex-col gap-3">
+                <button onclick="saveAuth()" class="w-full bg-hyper py-5 rounded-xl font-black text-black text-[12px] uppercase tracking-widest shadow-xl btn-prime">Initialize</button>
+                <button onclick="closeAuth()" class="w-full py-2 text-[10px] font-black text-slate-600 uppercase hover:text-white transition-all tracking-widest">Cancel</button>
+            </div>
         </div>
     </div>
 
-    <div id="manage-modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] hidden items-center justify-center p-6">
-        <div class="glass w-full max-w-xl rounded-[2.5rem] p-8 flex flex-col max-h-[85vh] animate-pop">
-            <h2 class="text-lg font-black text-white uppercase tracking-tighter mb-6">Review <span class="text-hyper">Buffer</span></h2>
-            <div id="manage-list" class="flex-1 overflow-y-auto space-y-3 mb-6 pr-2"></div>
-            <button onclick="compileToChat()" class="w-full bg-hyper py-5 rounded-xl font-black text-black text-[11px] uppercase tracking-widest">Send to Chat</button>
+    <!-- MODAL: MANAGE -->
+    <div id="manage-modal" class="fixed inset-0 modal-overlay z-[500] hidden items-center justify-center p-6">
+        <div class="glass w-full max-w-xl rounded-[3rem] p-8 sm:p-10 flex flex-col max-h-[85vh] animate-slide-up shadow-2xl relative">
+            <button onclick="closeManage()" class="absolute top-8 right-8 text-slate-500 hover:text-white transition-all">
+                <iconify-icon icon="solar:close-circle-bold" class="text-3xl"></iconify-icon>
+            </button>
+            <div class="mb-8">
+                <h2 class="text-xl font-black text-white uppercase tracking-tighter">Harvest <span class="text-hyper">Buffer</span></h2>
+            </div>
+            <div id="manage-list" class="flex-1 overflow-y-auto space-y-3 mb-8 pr-2"></div>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button onclick="compileToChat()" class="flex-1 bg-hyper py-5 rounded-xl font-black text-black text-[11px] uppercase tracking-widest shadow-xl btn-prime">Kirim ke Analis</button>
+                <button onclick="closeManage()" class="flex-1 bg-surface border border-white/10 py-5 rounded-xl font-black text-white text-[11px] uppercase tracking-widest btn-prime">Tutup</button>
+            </div>
         </div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-hyper text-black px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl z-[600] transition-all duration-300 toast-hidden flex items-center gap-3">
+        <iconify-icon icon="solar:verified-check-bold" class="text-lg"></iconify-icon>
+        <span id="toast-msg">Success</span>
     </div>
 
     <script>
-        // --- PRECISION PARSER v4.9.5 ---
+        // --- PARSER ---
         const PrimeParser = {
             parse: function(text) {
                 if (!text) return "";
                 let tokens = [];
                 let output = String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 
-                // 1. Tokenize Block Code
-                output = output.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
-                    const tid = `__BLOCK_${tokens.length}__`;
+                output = output.replace(/```(\w+)?\n([\s\S]*?)```/g, (m, lang, code) => {
+                    const tid = `_C${tokens.length}_`;
                     const clean = code.trim();
                     let hl; try { hl = hljs.highlightAuto(clean).value; } catch(e) { hl = clean; }
                     tokens.push({ id: tid, html: `
-                        <div class="code-container">
-                            <div class="code-nav"><div class="code-badge">${lang || 'code'}</div></div>
-                            <pre><code class="hljs">${hl}</code></pre>
+                        <div class="my-5 rounded-xl bg-black border border-white/10 overflow-hidden shadow-xl">
+                            <div class="px-4 py-2 bg-white/5 border-b border-white/5 flex justify-between items-center">
+                                <span class="text-[9px] font-black text-hyper uppercase">${lang || 'script'}</span>
+                                <button onclick="copyRaw(this, \`${btoa(unescape(encodeURIComponent(clean)))}\`)" class="text-[9px] font-black text-slate-500 hover:text-hyper transition-colors">COPY</button>
+                            </div>
+                            <pre class="p-4 text-[12px] leading-relaxed overflow-x-auto"><code class="hljs">${hl}</code></pre>
                         </div>`});
                     return tid;
                 });
 
-                // 2. Tokenize Inline Code
-                output = output.replace(/`([^`]+)`/g, (match, code) => {
-                    const tid = `__INLINE_${tokens.length}__`;
-                    tokens.push({ id: tid, html: `<code class="inline">${code}</code>`});
-                    return tid;
-                });
-
-                // 3. Process Structural Markdown
-                // Bold & Italic
+                output = output.replace(/`([^`]+)`/g, '<code class="inline">$1</code>');
                 output = output.replace(/\*\*\*(.*?)\*\*\*/g, '<b><i>$1</i></b>');
                 output = output.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
                 output = output.replace(/\*(.*?)\*/g, '<i>$1</i>');
 
-                // Lists and Bullets
                 let lines = output.split('\n');
                 lines = lines.map(line => {
-                    let processed = line.trim();
-                    
-                    // Order List (1. )
-                    if (/^\d+\.\s/.test(processed)) {
-                        return `<div class="bullet-item"><span class="bullet-point font-bold">${processed.match(/^\d+\./)[0]}</span><span>${processed.replace(/^\d+\.\s/, '')}</span></div>`;
-                    }
-                    // Bullet List (* or •)
-                    if (/^[\*\•\-]\s/.test(processed)) {
-                        return `<div class="bullet-item"><span class="bullet-point">•</span><span>${processed.replace(/^[\*\•\-]\s/, '')}</span></div>`;
-                    }
-                    
+                    let p = line.trim();
+                    if (/^\d+\.\s/.test(p)) return `<div class="bullet-item"><span class="bullet-point">${p.match(/^\d+\./)[0]}</span><span>${p.replace(/^\d+\.\s/, '')}</span></div>`;
+                    if (/^[\*\•\-]\s/.test(p)) return `<div class="bullet-item"><span class="bullet-point">●</span><span>${p.replace(/^[\*\•\-]\s/, '')}</span></div>`;
                     return line;
                 });
                 output = lines.join('\n');
-
-                // 4. Detokenize
                 tokens.forEach(t => output = output.replace(t.id, t.html));
-
                 return output.split('\n').join('<br>');
             }
         };
 
-        // --- ENGINE ---
         const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
         let state = {
-            apiKey: localStorage.getItem('taga_protocol_key') || "",
-            history: [{role:"system", content:"Anda adalah Taga Prime. Jawab dalam Bahasa Indonesia. Gunakan format markdown yang jelas. Untuk daftar gunakan angka (1.) atau bullet (*)."}],
+            apiKey: localStorage.getItem('taga_v5_key') || "",
+            history: [{role:"system", content:"Anda adalah Taga Studio Enterprise v5.3. Jawab dengan cerdas dan tata letak markdown rapi."}],
             isBusy: false, isDroneActive: false, buffer: [], droneTimer: null
         };
 
         function switchView(v) {
             document.getElementById('view-chat').classList.toggle('hidden', v !== 'chat');
             document.getElementById('view-drone').classList.toggle('hidden', v !== 'drone');
-            document.getElementById('tab-chat').className = v === 'chat' ? 'px-4 py-1.5 rounded-lg text-[10px] font-black tab-active transition-all' : 'px-4 py-1.5 rounded-lg text-[10px] font-black tab-inactive transition-all uppercase';
-            document.getElementById('tab-drone').className = v === 'drone' ? 'px-4 py-1.5 rounded-lg text-[10px] font-black tab-active transition-all' : 'px-4 py-1.5 rounded-lg text-[10px] font-black tab-inactive transition-all uppercase';
+            const chatTab = document.getElementById('tab-chat');
+            const droneTab = document.getElementById('tab-drone');
+            if(v === 'chat') {
+                chatTab.classList.add('active'); chatTab.classList.remove('text-slate-500');
+                droneTab.classList.remove('active'); droneTab.classList.add('text-slate-500');
+            } else {
+                droneTab.classList.add('active'); droneTab.classList.remove('text-slate-500');
+                chatTab.classList.remove('active'); chatTab.classList.add('text-slate-500');
+            }
         }
 
-        function openAuth() { document.getElementById('auth-modal').classList.replace('hidden', 'flex'); }
-        function saveAuth() {
-            const v = document.getElementById('api-key-input').value.trim();
-            if(v) { state.apiKey = v; localStorage.setItem('taga_protocol_key', v); updateKeyUI(); document.getElementById('auth-modal').classList.replace('flex', 'hidden'); }
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            t.classList.replace('toast-hidden', 'toast-active');
+            setTimeout(() => t.classList.replace('toast-active', 'toast-hidden'), 3000);
         }
-        function updateKeyUI() { document.getElementById('key-status').className = state.apiKey ? "text-hyper text-xl" : "text-slate-500 text-xl"; }
+
+        function copyEmbed() {
+            const embed = `<iframe src="${window.location.href}" width="100%" height="600px" style="border:none; border-radius:24px;"></iframe>`;
+            navigator.clipboard.writeText(embed).then(() => showToast("Embed link tersalin"));
+        }
+
+        async function copyRaw(btn, b64) {
+            const raw = decodeURIComponent(escape(atob(b64)));
+            await navigator.clipboard.writeText(raw);
+            btn.innerText = "COPIED";
+            setTimeout(() => btn.innerText = "COPY", 2000);
+        }
+
+        function openAuth() { document.getElementById('auth-modal').classList.remove('hidden'); }
+        function closeAuth() { document.getElementById('auth-modal').classList.add('hidden'); }
+        function saveAuth() {
+            const val = document.getElementById('api-key-input').value.trim();
+            if(val) { state.apiKey = val; localStorage.setItem('taga_v5_key', val); updateAuthUI(); closeAuth(); showToast("API Key tersimpan"); }
+        }
+        function updateAuthUI() { document.getElementById('key-status').className = state.apiKey ? "text-hyper text-xl" : "text-slate-500 text-xl"; }
         function autoExpand(el) { el.style.height = 'auto'; el.style.height = (el.scrollHeight > 150 ? 150 : el.scrollHeight) + 'px'; }
 
         async function handleSend() {
@@ -273,9 +348,8 @@
             appendBubble('user', msg);
             input.value = ''; input.style.height = 'auto';
             state.history.push({ role: "user", content: msg });
-            
             state.isBusy = true;
-            const aiBubble = appendBubble('ai', '<iconify-icon icon="solar:re-order-bold" class="animate-spin text-hyper"></iconify-icon> Syncing...', true);
+            const aiBubble = appendBubble('ai', '<div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-hyper rounded-full animate-ping"></div><span class="text-[9px] font-black uppercase text-hyper">Generating Response...</span></div>', true);
             const content = aiBubble.querySelector('.msg-text');
 
             try {
@@ -288,18 +362,18 @@
                 const reply = d.choices[0].message.content;
                 state.history.push({ role: "assistant", content: reply });
                 content.innerHTML = PrimeParser.parse(reply);
-            } catch(e) { content.innerText = "Error: " + String(e); } finally { state.isBusy = false; }
+            } catch(e) { content.innerText = "Gagal terhubung ke Engine."; } finally { state.isBusy = false; }
         }
 
         function appendBubble(role, text, isRaw = false) {
             const box = document.getElementById('chat-box');
             const div = document.createElement('div');
-            div.className = `flex gap-4 ${role === 'user' ? 'flex-row-reverse' : ''} animate-pop`;
+            div.className = `flex gap-4 ${role === 'user' ? 'flex-row-reverse' : ''} animate-slide-up`;
             div.innerHTML = `
-                <div class="w-10 h-10 rounded-xl ${role === 'user' ? 'bg-hyper' : 'bg-surface border border-white/10'} flex items-center justify-center flex-shrink-0">
-                    <iconify-icon icon="${role === 'user' ? 'solar:user-bold' : 'solar:ghost-bold'}" class="${role === 'user' ? 'text-black' : 'text-hyper'} text-xl"></iconify-icon>
+                <div class="w-10 h-10 rounded-xl ${role === 'user' ? 'bg-hyper' : 'bg-surface border border-white/10'} flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <iconify-icon icon="${role === 'user' ? 'solar:user-bold-duotone' : 'solar:ghost-bold-duotone'}" class="${role === 'user' ? 'text-black' : 'text-hyper'} text-2xl"></iconify-icon>
                 </div>
-                <div class="${role === 'user' ? 'bg-hyper/5 border-hyper/10' : 'bg-surface/80 border-white/5'} p-5 rounded-2xl ${role === 'user' ? 'rounded-tr-none' : 'rounded-tl-none'} border max-w-[85%] backdrop-blur-sm">
+                <div class="${role === 'user' ? 'bg-hyper/5 border-hyper/10' : 'bg-card border-white/5'} p-5 sm:p-7 rounded-3xl ${role === 'user' ? 'rounded-tr-none' : 'rounded-tl-none'} border max-w-[85%] shadow-xl">
                     <div class="msg-text">${isRaw ? text : PrimeParser.parse(text)}</div>
                 </div>`;
             box.appendChild(div);
@@ -307,78 +381,96 @@
             return div;
         }
 
-        // --- HARVEST ---
         function toggleDrone() {
             if(!state.apiKey) return openAuth();
             const topic = document.getElementById('drone-topic').value.trim();
-            if(!topic) return;
+            if(!topic) return showToast("Masukkan topik!");
+            
             state.isDroneActive = !state.isDroneActive;
             const btn = document.getElementById('drone-btn');
             const led = document.getElementById('drone-led');
+            const log = document.getElementById('drone-log');
+
             if(state.isDroneActive) {
-                btn.innerText = "STOP"; btn.classList.replace('bg-hyper', 'bg-accent');
-                led.className = "w-2 h-2 rounded-full bg-hyper shadow-[0_0_8px_#00ffcc] animate-pulse";
+                btn.innerText = "Halt"; btn.classList.replace('bg-hyper', 'bg-accent');
+                led.className = "w-2.5 h-2.5 rounded-full bg-hyper shadow-[0_0_12px_#00ffcc] animate-pulse";
+                log.innerHTML += `<div class="text-hyper">> Scanning Cluster: ${topic}</div>`;
                 harvestLoop(topic);
             } else {
-                btn.innerText = "START"; btn.classList.replace('bg-accent', 'bg-hyper');
-                led.className = "w-2 h-2 rounded-full bg-slate-800";
+                btn.innerText = "Launch"; btn.classList.replace('bg-accent', 'bg-hyper');
+                led.className = "w-2.5 h-2.5 rounded-full bg-slate-800";
+                log.innerHTML += `<div class="text-accent">> Mission Aborted.</div>`;
                 clearTimeout(state.droneTimer);
             }
         }
 
         async function harvestLoop(topic) {
             if(!state.isDroneActive) return;
+            const log = document.getElementById('drone-log');
+            const interval = parseInt(document.getElementById('drone-interval').value) * 1000;
+
             try {
                 const res = await fetch(GROQ_URL, {
                     method: "POST",
                     headers: { "Authorization": `Bearer ${state.apiKey}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{role:"user", content:`Berikan 1 fakta unik singkat (max 12 kata) tentang ${topic}.`}]})
+                    body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{role:"user", content:`Berikan 1 poin unik singkat (max 10 kata) tentang topik: ${topic}.`}]})
                 });
                 const d = await res.json();
                 const fact = d.choices[0].message.content.trim();
-                const isDup = state.buffer.some(i => i.text.toLowerCase() === fact.toLowerCase());
-                if(!isDup) {
+                
+                if(!state.buffer.some(i => i.text === fact)) {
                     state.buffer.push({ id: Date.now(), text: fact });
+                    log.innerHTML += `<div class="text-[8px]">> Data Capture: ${fact.substring(0, 30)}...</div>`;
+                    log.scrollTop = log.scrollHeight;
                     renderData();
                 }
-            } catch(e) {}
-            if(state.isDroneActive) state.droneTimer = setTimeout(() => harvestLoop(topic), 2000);
+            } catch(e) { log.innerHTML += `<div class="text-accent">> Conn Error.</div>`; }
+            
+            if(state.isDroneActive) state.droneTimer = setTimeout(() => harvestLoop(topic), interval);
         }
 
         function renderData() {
             const grid = document.getElementById('data-grid');
-            grid.innerHTML = "";
+            if(state.buffer.length > 0) grid.innerHTML = "";
+            
             state.buffer.slice().reverse().forEach(i => {
                 const d = document.createElement('div');
-                d.className = "glass p-5 rounded-2xl border-l-4 border-hyper animate-pop shadow-md";
-                d.innerHTML = `<p class="text-[12px] text-slate-300 italic">"${i.text}"</p>`;
+                // Precision aspect ratio 1:1 or specific ratio to keep it consistent
+                d.className = "bg-card aspect-[4/3] p-4 rounded-2xl border border-white/5 shadow-lg relative overflow-hidden group animate-slide-up flex flex-col justify-center text-center";
+                d.innerHTML = `
+                    <div class="absolute inset-0 bg-hyper opacity-0 group-hover:opacity-[0.03] transition-all"></div>
+                    <div class="absolute top-3 left-3 w-1.5 h-1.5 rounded-full bg-hyper/30"></div>
+                    <p class="text-[10px] sm:text-[11px] text-slate-300 leading-relaxed font-medium line-clamp-4">"${i.text}"</p>
+                `;
                 grid.appendChild(d);
             });
         }
 
         function openManage() {
-            document.getElementById('manage-modal').classList.replace('hidden', 'flex');
-            const list = document.getElementById('manage-list'); list.innerHTML = "";
+            document.getElementById('manage-modal').classList.remove('hidden');
+            const list = document.getElementById('manage-list');
+            list.innerHTML = "";
+            if(state.buffer.length === 0) list.innerHTML = "<p class='text-center text-slate-600 text-xs py-10 uppercase font-black tracking-widest'>Empty Buffer</p>";
             state.buffer.forEach(i => {
                 const d = document.createElement('div');
-                d.className = "flex items-center gap-3 bg-white/5 p-4 rounded-xl";
+                d.className = "flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/5";
                 d.innerHTML = `<div class="flex-1 text-[11px] text-slate-400 truncate">${i.text}</div>
-                <button onclick="state.buffer=state.buffer.filter(x=>x.id!==${i.id});openManage();renderData();" class="text-accent/50"><iconify-icon icon="solar:trash-bin-trash-bold"></iconify-icon></button>`;
+                <button onclick="state.buffer=state.buffer.filter(x=>x.id!==${i.id});openManage();renderData();" class="text-accent/50 hover:text-accent"><iconify-icon icon="solar:trash-bin-trash-bold"></iconify-icon></button>`;
                 list.appendChild(d);
             });
         }
+        function closeManage() { document.getElementById('manage-modal').classList.add('hidden'); }
 
         function compileToChat() {
             if(state.buffer.length === 0) return;
-            const s = "**HASIL PANEN DATA**\n\n" + state.buffer.map((x,i)=>`${i+1}. ${x.text}`).join('\n') + "\n\n---\n*Instruksi: Analisis data di atas.*";
-            document.getElementById('manage-modal').classList.add('hidden');
-            switchView('chat');
+            const s = "**INTELLIGENCE REPORT**\n\n" + state.buffer.map((x,i)=>`${i+1}. ${x.text}`).join('\n') + "\n\n---\n*Instruksi: Berikan ringkasan eksekutif dari fragmen data di atas.*";
+            closeManage(); switchView('chat');
             document.getElementById('chat-input').value = s;
             handleSend();
         }
 
-        updateKeyUI();
+        updateAuthUI();
+        switchView('chat');
     </script>
 </body>
 </html>
-
