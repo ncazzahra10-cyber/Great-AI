@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Taga Studio v4.9.0 - Protocol Prime</title>
+    <title>Taga Studio v4.9.5 - Precision Prime</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     
@@ -38,90 +38,96 @@
             overflow: hidden; 
             display: flex; 
             flex-direction: column;
-            padding-top: var(--sat);
-            padding-bottom: var(--sab);
         }
         .glass { background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(40px); border: 1px solid rgba(0, 255, 204, 0.1); }
-        .main-content { flex: 1; min-height: 0; display: flex; flex-direction: column; }
         #chat-box { flex: 1; overflow-y: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         
-        /* Prime Code Engine - Tokenized System */
-        .code-container { margin: 1rem 0; border-radius: 12px; background: #010204; border: 1px solid rgba(0, 255, 204, 0.3); overflow: hidden; }
-        .code-nav { background: rgba(0, 255, 204, 0.08); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 255, 204, 0.15); }
+        /* Prime Precision Code Engine */
+        .code-container { margin: 1.25rem 0; border-radius: 12px; background: #010204; border: 1px solid rgba(0, 255, 204, 0.2); overflow: hidden; }
+        .code-nav { background: rgba(0, 255, 204, 0.05); padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 255, 204, 0.1); }
         .code-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 800; color: #00ffcc; text-transform: uppercase; letter-spacing: 1px; }
-        pre code.hljs { padding: 1rem !important; font-family: 'JetBrains Mono', monospace !important; font-size: 0.75rem !important; line-height: 1.6 !important; background: transparent !important; overflow-x: auto; }
+        pre code.hljs { padding: 1.25rem !important; font-family: 'JetBrains Mono', monospace !important; font-size: 0.8rem !important; line-height: 1.6 !important; background: transparent !important; }
 
-        .msg-text { white-space: pre-wrap; font-size: 0.9rem; line-height: 1.6; color: #e2e8f0; word-break: break-word; }
-        .msg-text code.inline { background: rgba(0, 255, 204, 0.15); color: #00ffcc; padding: 2px 5px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+        /* Text Element Precision */
+        .msg-text { font-size: 0.95rem; line-height: 1.7; color: #e2e8f0; word-break: break-word; }
+        .msg-text b { color: #fff; font-weight: 700; }
+        .msg-text i { color: #cbd5e1; font-style: italic; }
+        .msg-text code.inline { background: rgba(0, 255, 204, 0.1); color: #00ffcc; padding: 2px 6px; border-radius: 5px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; border: 1px solid rgba(0, 255, 204, 0.15); }
+        
+        /* List Styling */
+        .msg-text ul, .msg-text ol { padding-left: 1.5rem; margin: 0.75rem 0; }
+        .msg-text ul li { list-style-type: disc; margin-bottom: 0.4rem; }
+        .msg-text ol li { list-style-type: decimal; margin-bottom: 0.4rem; }
+        .msg-text .bullet-item { display: flex; gap: 0.75rem; margin-bottom: 0.4rem; }
+        .msg-text .bullet-point { color: #00ffcc; flex-shrink: 0; }
 
         .animate-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards; }
-        @keyframes pop { from { opacity: 0; transform: scale(0.98) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes pop { from { opacity: 0; transform: scale(0.98) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         
-        .tab-active { background: #00ffcc; color: #000; box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3); }
+        .tab-active { background: #00ffcc; color: #000; box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2); }
         .tab-inactive { color: #64748b; }
         
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-thumb { background: #00ffcc22; border-radius: 10px; }
-
-        @media (max-width: 768px) {
-            .msg-text { font-size: 0.85rem; }
-            .glass { border-radius: 1.5rem !important; }
-            #chat-box { padding: 1rem !important; }
-            .header-title { font-size: 1.25rem; }
-        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #00ffcc15; border-radius: 10px; }
     </style>
 </head>
-<body class="p-2 sm:p-4 md:p-6">
+<body class="p-2 sm:p-4">
 
     <div class="max-w-6xl mx-auto w-full h-full flex flex-col">
         <!-- HEADER -->
-        <header class="flex flex-wrap justify-between items-center mb-3 sm:mb-5 gap-3 px-2">
+        <header class="flex flex-wrap justify-between items-center mb-4 gap-3 px-2">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-surface border border-hyper/30 rounded-xl flex items-center justify-center shadow-xl">
-                    <iconify-icon icon="solar:shield-star-bold-duotone" class="text-hyper text-2xl sm:text-3xl"></iconify-icon>
+                <div class="w-10 h-10 bg-surface border border-hyper/20 rounded-xl flex items-center justify-center">
+                    <iconify-icon icon="solar:shield-star-bold" class="text-hyper text-2xl"></iconify-icon>
                 </div>
                 <div>
-                    <h1 class="font-black text-white text-lg sm:text-2xl tracking-tighter uppercase leading-none header-title">PRIME<span class="text-hyper ml-1">SYNC</span></h1>
-                    <p class="text-[8px] sm:text-[10px] font-bold text-slate-500 tracking-[0.3em] uppercase opacity-50 mt-1">v4.9.0 Responsive</p>
+                    <h1 class="font-black text-white text-xl tracking-tighter uppercase leading-none">PRIME<span class="text-hyper ml-1">V4.9.5</span></h1>
+                    <p class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase opacity-50 mt-1">Precision Markdown Engine</p>
                 </div>
             </div>
             
-            <div class="flex items-center gap-2 sm:gap-3 ml-auto sm:ml-0">
+            <div class="flex items-center gap-2">
                 <div class="flex bg-surface/80 p-1 rounded-xl border border-white/5 backdrop-blur-md">
-                    <button onclick="switchView('chat')" id="tab-chat" class="px-3 sm:px-6 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-[11px] font-black tab-active transition-all">CHATS</button>
-                    <button onclick="switchView('drone')" id="tab-drone" class="px-3 sm:px-6 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-[11px] font-black tab-inactive transition-all uppercase">DRONE</button>
+                    <button onclick="switchView('chat')" id="tab-chat" class="px-4 py-1.5 rounded-lg text-[10px] font-black tab-active transition-all">CHATS</button>
+                    <button onclick="switchView('drone')" id="tab-drone" class="px-4 py-1.5 rounded-lg text-[10px] font-black tab-inactive transition-all uppercase">Drone</button>
                 </div>
-                <button onclick="openAuth()" class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-surface border border-white/10 hover:border-hyper transition-all shadow-xl">
-                    <iconify-icon icon="solar:key-minimalistic-square-bold-duotone" id="key-status" class="text-slate-500 text-xl sm:text-2xl"></iconify-icon>
+                <button onclick="openAuth()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface border border-white/10 hover:border-hyper transition-all">
+                    <iconify-icon icon="solar:key-minimalistic-bold" id="key-status" class="text-slate-500 text-xl"></iconify-icon>
                 </button>
             </div>
         </header>
 
-        <!-- MAIN VIEWPORT -->
-        <main class="main-content relative">
-            
+        <!-- MAIN VIEW -->
+        <main class="flex-1 relative min-h-0">
             <!-- CHAT VIEW -->
             <div id="view-chat" class="h-full flex flex-col animate-pop">
-                <div class="glass rounded-[2rem] sm:rounded-[3rem] overflow-hidden flex flex-col h-full shadow-2xl border-white/5 relative">
-                    <div id="chat-box" class="p-4 sm:p-8 space-y-6 sm:space-y-8">
-                        <!-- Welcome Message -->
-                        <div class="flex gap-3 sm:gap-5">
-                            <div class="w-10 h-10 rounded-xl bg-hyper/10 border border-hyper/20 flex items-center justify-center flex-shrink-0">
-                                <iconify-icon icon="solar:ghost-bold-duotone" class="text-hyper text-2xl"></iconify-icon>
+                <div class="glass rounded-[2rem] overflow-hidden flex flex-col h-full shadow-2xl border-white/5">
+                    <div id="chat-box" class="p-5 sm:p-10 space-y-8">
+                        <!-- Welcome -->
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-hyper/10 flex items-center justify-center flex-shrink-0">
+                                <iconify-icon icon="solar:ghost-bold" class="text-hyper text-xl"></iconify-icon>
                             </div>
-                            <div class="bg-white/5 p-4 sm:p-6 rounded-2xl rounded-tl-none border border-white/5 max-w-[90%] sm:max-w-[85%] shadow-lg">
-                                <div class="msg-text"><b>Protocol v4.9.0 Online.</b> UI sekarang responsif. Gunakan tab Drone untuk panen data massal, lalu Kelola untuk mengirim ke sini.</div>
+                            <div class="bg-white/5 p-6 rounded-2xl rounded-tl-none border border-white/5 max-w-[90%]">
+                                <div class="msg-text">
+                                    <b>Selamat datang di Precision Prime.</b><br>
+                                    Mesin parser telah diperbarui untuk menangani:<br>
+                                    • Penomoran otomatis (1. 2. 3.)<br>
+                                    • Poin/Bullet (* atau •)<br>
+                                    • Format tebal (**) dan miring (*)<br>
+                                    • Blok kode tanpa tabrakan inline.
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="p-4 sm:p-6 bg-dark/60 border-t border-white/5 backdrop-blur-xl">
+                    <div class="p-4 sm:p-6 bg-dark/40 border-t border-white/5 backdrop-blur-xl">
                         <div class="flex gap-3 items-end max-w-4xl mx-auto">
-                            <div class="flex-1 bg-surface/50 rounded-2xl border border-white/10 p-1 flex items-center min-h-[50px] focus-within:border-hyper/40 transition-all">
-                                <textarea id="chat-input" rows="1" class="w-full bg-transparent border-none outline-none text-sm px-4 py-2 resize-none text-white font-medium" placeholder="Tanya sesuatu..." oninput="autoExpand(this)"></textarea>
+                            <div class="flex-1 bg-surface/50 rounded-2xl border border-white/10 p-1 flex items-center min-h-[54px] focus-within:border-hyper/30">
+                                <textarea id="chat-input" rows="1" class="w-full bg-transparent border-none outline-none text-sm px-4 py-2 resize-none text-white placeholder:text-slate-600" placeholder="Ketik perintah..." oninput="autoExpand(this)"></textarea>
                             </div>
-                            <button onclick="handleSend()" class="w-12 h-12 sm:w-14 sm:h-14 bg-hyper hover:brightness-110 active:scale-95 rounded-2xl flex items-center justify-center shadow-lg shadow-hyper/20 flex-shrink-0">
-                                <iconify-icon icon="solar:rocket-bold-duotone" class="text-black text-2xl"></iconify-icon>
+                            <button onclick="handleSend()" class="w-14 h-14 bg-hyper hover:brightness-110 active:scale-95 rounded-2xl flex items-center justify-center shadow-lg shadow-hyper/10 flex-shrink-0">
+                                <iconify-icon icon="solar:rocket-bold" class="text-black text-2xl"></iconify-icon>
                             </button>
                         </div>
                     </div>
@@ -130,176 +136,134 @@
 
             <!-- DRONE VIEW -->
             <div id="view-drone" class="hidden h-full animate-pop flex flex-col overflow-hidden">
-                <div class="flex flex-col lg:grid lg:grid-cols-12 gap-4 sm:gap-6 h-full pb-4 sm:pb-6 overflow-hidden">
-                    
-                    <!-- Control Tower -->
-                    <div class="lg:col-span-4 space-y-4 flex flex-col overflow-y-auto sm:overflow-visible">
-                        <div class="glass p-5 sm:p-8 rounded-[2rem] space-y-5">
+                <div class="flex flex-col lg:grid lg:grid-cols-12 gap-6 h-full pb-6 min-h-0">
+                    <div class="lg:col-span-4 space-y-4 flex flex-col">
+                        <div class="glass p-6 rounded-[2rem] space-y-4">
                             <div class="flex justify-between items-center">
                                 <h3 class="text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
-                                    <iconify-icon icon="solar:globus-bold-duotone" class="text-hyper text-xl"></iconify-icon> Scout Engine
+                                    <iconify-icon icon="solar:globus-bold" class="text-hyper text-lg"></iconify-icon> Harvest Engine
                                 </h3>
-                                <div id="drone-led" class="w-2.5 h-2.5 rounded-full bg-slate-800"></div>
+                                <div id="drone-led" class="w-2 h-2 rounded-full bg-slate-800"></div>
                             </div>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-                                <div class="space-y-2">
-                                    <label class="text-[9px] font-black text-slate-500 uppercase tracking-widest ml-1">Target</label>
-                                    <input type="text" id="drone-topic" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 sm:p-4 text-xs text-white outline-none focus:border-hyper/40 transition-all" placeholder="E.g. AI News">
-                                </div>
-                                <div class="space-y-2">
-                                    <div class="flex justify-between">
-                                        <span class="text-[9px] font-black text-slate-500 uppercase">Interval</span>
-                                        <span id="speed-label" class="text-[9px] font-black text-hyper">1.0s</span>
-                                    </div>
-                                    <input type="range" id="drone-speed" min="1000" max="10000" step="1000" value="1000" oninput="updateSpeedUI(this.value)" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none accent-hyper cursor-pointer">
-                                </div>
-                            </div>
-
-                            <div class="flex gap-3">
-                                <button id="drone-btn" onclick="toggleDrone()" class="flex-1 bg-hyper py-4 rounded-xl font-black text-black text-[10px] uppercase tracking-widest shadow-xl shadow-hyper/20 active:scale-95 transition-all">Launch</button>
-                                <button onclick="openManage()" class="w-14 bg-surface border border-white/10 rounded-xl text-white flex items-center justify-center hover:border-hyper transition-all">
-                                    <iconify-icon icon="solar:checklist-bold-duotone" class="text-2xl"></iconify-icon>
+                            <input type="text" id="drone-topic" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-xs text-white outline-none focus:border-hyper/30" placeholder="Topik Panen...">
+                            <div class="flex gap-2">
+                                <button id="drone-btn" onclick="toggleDrone()" class="flex-1 bg-hyper py-4 rounded-xl font-black text-black text-[10px] uppercase tracking-widest">START</button>
+                                <button onclick="openManage()" class="px-5 bg-surface border border-white/10 rounded-xl text-white flex items-center justify-center">
+                                    <iconify-icon icon="solar:checklist-bold" class="text-xl"></iconify-icon>
                                 </button>
                             </div>
                         </div>
-                        
-                        <!-- Log (Hidden on mobile small screens, visible on LG) -->
-                        <div id="drone-log" class="hidden lg:block flex-1 bg-black/80 p-6 rounded-[2rem] overflow-y-auto font-mono text-[9px] text-slate-500 space-y-2 border border-white/5 shadow-inner">
-                            <div class="opacity-20">> Engine Standby...</div>
+                        <div id="drone-log" class="hidden lg:block flex-1 bg-black/60 p-5 rounded-[2rem] overflow-y-auto font-mono text-[9px] text-slate-500 space-y-1 border border-white/5">
+                            <div>> System Ready.</div>
                         </div>
                     </div>
-
-                    <!-- Storage Grid -->
                     <div class="lg:col-span-8 flex flex-col min-h-0">
-                        <div class="flex justify-between items-center mb-4 px-2">
-                            <div class="flex items-center gap-3">
-                                <div class="px-3 py-1 rounded-lg bg-hyper/10 border border-hyper/20 text-hyper text-[10px] font-black" id="data-count">0</div>
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Fragments</span>
-                            </div>
-                            <button onclick="clearData()" class="text-[9px] font-black text-accent/50 hover:text-accent uppercase transition-colors px-2 py-1">Wipe All</button>
-                        </div>
-                        <div id="data-grid" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-3 pr-2 pb-10 custom-scroll"></div>
+                        <div id="data-grid" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-4 pr-2 pb-10"></div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- MODAL: MANAGE (RESPONSIVE) -->
-    <div id="manage-modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] hidden items-center justify-center p-3 sm:p-6">
-        <div class="glass w-full max-w-xl rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 flex flex-col max-h-[90vh] shadow-2xl border-hyper/20 animate-pop">
-            <div class="flex justify-between items-center mb-6 sm:mb-8">
-                <div>
-                    <h2 class="text-lg sm:text-xl font-black text-white uppercase tracking-tighter">Review <span class="text-hyper">Buffer</span></h2>
-                    <p class="text-[9px] font-bold text-slate-500 uppercase mt-1">Hapus duplikat secara manual jika perlu</p>
-                </div>
-                <button onclick="closeManage()" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/5 flex items-center justify-center hover:text-accent transition-all">
-                    <iconify-icon icon="solar:close-circle-bold" class="text-2xl sm:text-3xl"></iconify-icon>
-                </button>
-            </div>
-            
-            <div id="manage-list" class="flex-1 overflow-y-auto space-y-3 mb-6 sm:mb-8 pr-2 custom-scroll"></div>
-
-            <div class="flex gap-3 sm:gap-4">
-                <button onclick="compileToChat()" class="flex-1 bg-hyper py-4 sm:py-5 rounded-xl font-black text-black text-[11px] uppercase tracking-widest shadow-xl transition-all">Sync to Chat</button>
-                <button onclick="closeManage()" class="px-6 sm:px-8 bg-surface border border-white/10 rounded-xl font-black text-white text-[11px] uppercase">Back</button>
-            </div>
+    <!-- MODALS -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[200] hidden items-center justify-center p-6">
+        <div class="bg-surface border border-white/10 w-full max-w-xs p-10 rounded-[2.5rem] animate-pop text-center">
+            <h2 class="font-black text-white text-lg mb-6 uppercase tracking-widest">Enter API Key</h2>
+            <input type="password" id="api-key-input" class="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-xs text-hyper text-center outline-none mb-6" placeholder="Groq GSK_...">
+            <button onclick="saveAuth()" class="w-full bg-hyper py-4 rounded-xl font-black text-black text-[11px] uppercase shadow-xl shadow-hyper/20">Initialize</button>
         </div>
     </div>
 
-    <!-- AUTH MODAL -->
-    <div id="auth-modal" class="fixed inset-0 bg-black/98 backdrop-blur-3xl z-[200] hidden items-center justify-center p-4">
-        <div class="bg-surface border border-white/10 w-full max-w-sm p-8 sm:p-10 rounded-[2.5rem] animate-pop text-center">
-            <div class="w-16 h-16 bg-hyper/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-hyper/20 shadow-xl">
-                <iconify-icon icon="solar:shield-keyhole-bold-duotone" class="text-hyper text-4xl"></iconify-icon>
-            </div>
-            <h2 class="font-black text-xl text-white mb-2 uppercase">Auth Key</h2>
-            <p class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-6 leading-relaxed">Masukkan Groq API Key Anda</p>
-            <input type="password" id="api-key-input" class="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-hyper outline-none mb-6 text-center tracking-[0.2em]" placeholder="GSK_...">
-            <button onclick="saveAuth()" class="w-full bg-hyper py-4 rounded-xl font-black text-black text-[12px] uppercase tracking-widest shadow-xl shadow-hyper/30">Activate</button>
+    <div id="manage-modal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[100] hidden items-center justify-center p-6">
+        <div class="glass w-full max-w-xl rounded-[2.5rem] p-8 flex flex-col max-h-[85vh] animate-pop">
+            <h2 class="text-lg font-black text-white uppercase tracking-tighter mb-6">Review <span class="text-hyper">Buffer</span></h2>
+            <div id="manage-list" class="flex-1 overflow-y-auto space-y-3 mb-6 pr-2"></div>
+            <button onclick="compileToChat()" class="w-full bg-hyper py-5 rounded-xl font-black text-black text-[11px] uppercase tracking-widest">Send to Chat</button>
         </div>
     </div>
 
     <script>
-        // --- PRIME TOKENIZED PARSER v4.9 ---
+        // --- PRECISION PARSER v4.9.5 ---
         const PrimeParser = {
             parse: function(text) {
                 if (!text) return "";
                 let tokens = [];
                 let output = String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 
-                // 1. Tokenize Block Code (PRIORITY 1)
-                const codeRegex = /```(\w+)?\n([\s\S]*?)```/g;
-                output = output.replace(codeRegex, (match, lang, code) => {
-                    const tokenId = `__CODE_BLOCK_${tokens.length}__`;
-                    const cleanCode = code.trim();
-                    const b64 = btoa(unescape(encodeURIComponent(cleanCode)));
-                    let highlighted;
-                    try { highlighted = hljs.highlightAuto(cleanCode).value; } catch(e) { highlighted = cleanCode; }
-
-                    const blockHtml = `
+                // 1. Tokenize Block Code
+                output = output.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+                    const tid = `__BLOCK_${tokens.length}__`;
+                    const clean = code.trim();
+                    let hl; try { hl = hljs.highlightAuto(clean).value; } catch(e) { hl = clean; }
+                    tokens.push({ id: tid, html: `
                         <div class="code-container">
-                            <div class="code-nav">
-                                <div class="code-badge">${lang || 'code'}</div>
-                                <button onclick="copyRawCode(this, '${b64}')" class="text-[9px] font-black text-slate-500 hover:text-hyper flex items-center gap-1">
-                                    <iconify-icon icon="solar:copy-bold" class="text-sm"></iconify-icon> COPY
-                                </button>
-                            </div>
-                            <pre><code class="hljs">${highlighted}</code></pre>
-                        </div>`;
-                    tokens.push({ id: tokenId, html: blockHtml });
-                    return tokenId;
+                            <div class="code-nav"><div class="code-badge">${lang || 'code'}</div></div>
+                            <pre><code class="hljs">${hl}</code></pre>
+                        </div>`});
+                    return tid;
                 });
 
-                // 2. Format Inlines (PRIORITY 2)
+                // 2. Tokenize Inline Code
+                output = output.replace(/`([^`]+)`/g, (match, code) => {
+                    const tid = `__INLINE_${tokens.length}__`;
+                    tokens.push({ id: tid, html: `<code class="inline">${code}</code>`});
+                    return tid;
+                });
+
+                // 3. Process Structural Markdown
+                // Bold & Italic
+                output = output.replace(/\*\*\*(.*?)\*\*\*/g, '<b><i>$1</i></b>');
                 output = output.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-                output = output.replace(/`(.*?)`/g, '<code class="inline">$1</code>');
-                
-                // 3. Detokenize
-                tokens.forEach(token => output = output.replace(token.id, token.html));
+                output = output.replace(/\*(.*?)\*/g, '<i>$1</i>');
+
+                // Lists and Bullets
+                let lines = output.split('\n');
+                lines = lines.map(line => {
+                    let processed = line.trim();
+                    
+                    // Order List (1. )
+                    if (/^\d+\.\s/.test(processed)) {
+                        return `<div class="bullet-item"><span class="bullet-point font-bold">${processed.match(/^\d+\./)[0]}</span><span>${processed.replace(/^\d+\.\s/, '')}</span></div>`;
+                    }
+                    // Bullet List (* or •)
+                    if (/^[\*\•\-]\s/.test(processed)) {
+                        return `<div class="bullet-item"><span class="bullet-point">•</span><span>${processed.replace(/^[\*\•\-]\s/, '')}</span></div>`;
+                    }
+                    
+                    return line;
+                });
+                output = lines.join('\n');
+
+                // 4. Detokenize
+                tokens.forEach(t => output = output.replace(t.id, t.html));
 
                 return output.split('\n').join('<br>');
             }
         };
 
-        // --- STATE & CONFIG ---
+        // --- ENGINE ---
         const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
         let state = {
             apiKey: localStorage.getItem('taga_protocol_key') || "",
-            history: [{role:"system", content:"Anda adalah Taga Prime. Jawab dalam Bahasa Indonesia. Gunakan blok kode markdown untuk setiap kode pemrograman. Pastikan ada nama bahasa setelah triple backtick."}],
-            isBusy: false,
-            isDroneActive: false,
-            buffer: [],
-            droneTimer: null
+            history: [{role:"system", content:"Anda adalah Taga Prime. Jawab dalam Bahasa Indonesia. Gunakan format markdown yang jelas. Untuk daftar gunakan angka (1.) atau bullet (*)."}],
+            isBusy: false, isDroneActive: false, buffer: [], droneTimer: null
         };
 
-        // --- CORE UI FUNCTIONS ---
         function switchView(v) {
             document.getElementById('view-chat').classList.toggle('hidden', v !== 'chat');
             document.getElementById('view-drone').classList.toggle('hidden', v !== 'drone');
-            document.getElementById('tab-chat').className = v === 'chat' ? 'px-3 sm:px-6 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-[11px] font-black tab-active transition-all' : 'px-3 sm:px-6 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-[11px] font-black tab-inactive transition-all uppercase';
-            document.getElementById('tab-drone').className = v === 'drone' ? 'px-3 sm:px-6 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-[11px] font-black tab-active transition-all' : 'px-3 sm:px-6 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-[11px] font-black tab-inactive transition-all uppercase';
+            document.getElementById('tab-chat').className = v === 'chat' ? 'px-4 py-1.5 rounded-lg text-[10px] font-black tab-active transition-all' : 'px-4 py-1.5 rounded-lg text-[10px] font-black tab-inactive transition-all uppercase';
+            document.getElementById('tab-drone').className = v === 'drone' ? 'px-4 py-1.5 rounded-lg text-[10px] font-black tab-active transition-all' : 'px-4 py-1.5 rounded-lg text-[10px] font-black tab-inactive transition-all uppercase';
         }
 
         function openAuth() { document.getElementById('auth-modal').classList.replace('hidden', 'flex'); }
-        function closeAuth() { document.getElementById('auth-modal').classList.replace('flex', 'hidden'); }
         function saveAuth() {
-            const val = document.getElementById('api-key-input').value.trim();
-            if(val) { state.apiKey = val; localStorage.setItem('taga_protocol_key', val); updateKeyUI(); closeAuth(); }
+            const v = document.getElementById('api-key-input').value.trim();
+            if(v) { state.apiKey = v; localStorage.setItem('taga_protocol_key', v); updateKeyUI(); document.getElementById('auth-modal').classList.replace('flex', 'hidden'); }
         }
-        function updateKeyUI() { document.getElementById('key-status').className = state.apiKey ? "text-hyper text-xl sm:text-2xl" : "text-slate-500 text-xl sm:text-2xl"; }
+        function updateKeyUI() { document.getElementById('key-status').className = state.apiKey ? "text-hyper text-xl" : "text-slate-500 text-xl"; }
         function autoExpand(el) { el.style.height = 'auto'; el.style.height = (el.scrollHeight > 150 ? 150 : el.scrollHeight) + 'px'; }
-        function updateSpeedUI(v) { document.getElementById('speed-label').innerText = (v/1000).toFixed(1) + 's'; }
 
-        async function copyRawCode(btn, b64) {
-            const raw = decodeURIComponent(escape(atob(b64)));
-            await navigator.clipboard.writeText(raw);
-            btn.innerHTML = `<iconify-icon icon="solar:check-read-bold" class="text-hyper"></iconify-icon> OK`;
-            setTimeout(() => btn.innerHTML = `<iconify-icon icon="solar:copy-bold"></iconify-icon> COPY`, 2000);
-        }
-
-        // --- CHAT LOGIC ---
         async function handleSend() {
             if(state.isBusy || !state.apiKey) { if(!state.apiKey) openAuth(); return; }
             const input = document.getElementById('chat-input');
@@ -311,46 +275,39 @@
             state.history.push({ role: "user", content: msg });
             
             state.isBusy = true;
-            const aiBubble = appendBubble('ai', '<span class="flex items-center gap-2"><iconify-icon icon="solar:re-order-bold-duotone" class="animate-spin text-hyper"></iconify-icon> Syncing...</span>', true);
+            const aiBubble = appendBubble('ai', '<iconify-icon icon="solar:re-order-bold" class="animate-spin text-hyper"></iconify-icon> Syncing...', true);
             const content = aiBubble.querySelector('.msg-text');
 
             try {
                 const res = await fetch(GROQ_URL, {
                     method: "POST",
                     headers: { "Authorization": `Bearer ${state.apiKey}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({ model: "llama-3.3-70b-versatile", messages: state.history, temperature: 0.7 })
+                    body: JSON.stringify({ model: "llama-3.3-70b-versatile", messages: state.history })
                 });
                 const d = await res.json();
-                if(!res.ok) throw new Error(d.error?.message || "Protocol Fail");
                 const reply = d.choices[0].message.content;
                 state.history.push({ role: "assistant", content: reply });
                 content.innerHTML = PrimeParser.parse(reply);
-            } catch(e) {
-                content.innerHTML = `<div class="text-accent text-[10px] font-mono">${String(e)}</div>`;
-            } finally { 
-                state.isBusy = false; 
-                document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
-            }
+            } catch(e) { content.innerText = "Error: " + String(e); } finally { state.isBusy = false; }
         }
 
         function appendBubble(role, text, isRaw = false) {
             const box = document.getElementById('chat-box');
             const div = document.createElement('div');
-            div.className = `flex gap-3 sm:gap-4 ${role === 'user' ? 'flex-row-reverse' : ''} animate-pop`;
+            div.className = `flex gap-4 ${role === 'user' ? 'flex-row-reverse' : ''} animate-pop`;
             div.innerHTML = `
-                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl ${role === 'user' ? 'bg-hyper' : 'bg-surface border border-white/10'} flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <iconify-icon icon="${role === 'user' ? 'solar:user-bold' : 'solar:ghost-bold'}" class="${role === 'user' ? 'text-black' : 'text-hyper'} text-xl sm:text-2xl"></iconify-icon>
+                <div class="w-10 h-10 rounded-xl ${role === 'user' ? 'bg-hyper' : 'bg-surface border border-white/10'} flex items-center justify-center flex-shrink-0">
+                    <iconify-icon icon="${role === 'user' ? 'solar:user-bold' : 'solar:ghost-bold'}" class="${role === 'user' ? 'text-black' : 'text-hyper'} text-xl"></iconify-icon>
                 </div>
-                <div class="${role === 'user' ? 'bg-hyper/5 border-hyper/10' : 'bg-surface/80 border-white/5'} p-4 sm:p-6 rounded-2xl ${role === 'user' ? 'rounded-tr-none' : 'rounded-tl-none'} border max-w-[90%] sm:max-w-[85%] shadow-xl backdrop-blur-sm">
+                <div class="${role === 'user' ? 'bg-hyper/5 border-hyper/10' : 'bg-surface/80 border-white/5'} p-5 rounded-2xl ${role === 'user' ? 'rounded-tr-none' : 'rounded-tl-none'} border max-w-[85%] backdrop-blur-sm">
                     <div class="msg-text">${isRaw ? text : PrimeParser.parse(text)}</div>
-                </div>
-            `;
+                </div>`;
             box.appendChild(div);
             box.scrollTop = box.scrollHeight;
             return div;
         }
 
-        // --- HARVEST DRONE (DE-DUP & LOGIC) ---
+        // --- HARVEST ---
         function toggleDrone() {
             if(!state.apiKey) return openAuth();
             const topic = document.getElementById('drone-topic').value.trim();
@@ -359,76 +316,64 @@
             const btn = document.getElementById('drone-btn');
             const led = document.getElementById('drone-led');
             if(state.isDroneActive) {
-                btn.innerText = "Recall"; btn.className = "flex-1 bg-accent py-4 rounded-xl font-black text-white text-[10px] uppercase shadow-xl";
-                led.className = "w-2.5 h-2.5 rounded-full bg-hyper shadow-[0_0_10px_#00ffcc] animate-pulse";
+                btn.innerText = "STOP"; btn.classList.replace('bg-hyper', 'bg-accent');
+                led.className = "w-2 h-2 rounded-full bg-hyper shadow-[0_0_8px_#00ffcc] animate-pulse";
                 harvestLoop(topic);
             } else {
-                btn.innerText = "Launch"; btn.className = "flex-1 bg-hyper py-4 rounded-xl font-black text-black text-[10px] uppercase shadow-xl";
-                led.className = "w-2.5 h-2.5 rounded-full bg-slate-800";
+                btn.innerText = "START"; btn.classList.replace('bg-accent', 'bg-hyper');
+                led.className = "w-2 h-2 rounded-full bg-slate-800";
                 clearTimeout(state.droneTimer);
             }
         }
 
         async function harvestLoop(topic) {
             if(!state.isDroneActive) return;
-            const speed = parseInt(document.getElementById('drone-speed').value);
             try {
                 const res = await fetch(GROQ_URL, {
                     method: "POST",
                     headers: { "Authorization": `Bearer ${state.apiKey}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{role:"user", content:`Berikan 1 fakta pendek (max 12 kata) unik tentang ${topic}.`}]})
+                    body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: [{role:"user", content:`Berikan 1 fakta unik singkat (max 12 kata) tentang ${topic}.`}]})
                 });
                 const d = await res.json();
-                if(d.choices) {
-                    const fact = d.choices[0].message.content.trim();
-                    const isDup = state.buffer.some(i => i.text.toLowerCase() === fact.toLowerCase());
-                    if(!isDup) {
-                        state.buffer.push({ id: Date.now(), text: fact });
-                        renderDataGrid();
-                    }
+                const fact = d.choices[0].message.content.trim();
+                const isDup = state.buffer.some(i => i.text.toLowerCase() === fact.toLowerCase());
+                if(!isDup) {
+                    state.buffer.push({ id: Date.now(), text: fact });
+                    renderData();
                 }
             } catch(e) {}
-            if(state.isDroneActive) state.droneTimer = setTimeout(() => harvestLoop(topic), speed);
+            if(state.isDroneActive) state.droneTimer = setTimeout(() => harvestLoop(topic), 2000);
         }
 
-        function renderDataGrid() {
+        function renderData() {
             const grid = document.getElementById('data-grid');
             grid.innerHTML = "";
             state.buffer.slice().reverse().forEach(i => {
                 const d = document.createElement('div');
-                d.className = "glass p-4 rounded-2xl border-l-4 border-hyper animate-pop shadow-md";
-                d.innerHTML = `<p class="text-[11px] text-slate-300 italic">"${i.text}"</p>`;
+                d.className = "glass p-5 rounded-2xl border-l-4 border-hyper animate-pop shadow-md";
+                d.innerHTML = `<p class="text-[12px] text-slate-300 italic">"${i.text}"</p>`;
                 grid.appendChild(d);
             });
-            document.getElementById('data-count').innerText = state.buffer.length;
         }
 
         function openManage() {
             document.getElementById('manage-modal').classList.replace('hidden', 'flex');
-            const list = document.getElementById('manage-list');
-            list.innerHTML = "";
-            state.buffer.forEach((item, idx) => {
+            const list = document.getElementById('manage-list'); list.innerHTML = "";
+            state.buffer.forEach(i => {
                 const d = document.createElement('div');
-                d.className = "flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/5 group";
-                d.innerHTML = `
-                    <div class="text-[10px] font-black text-hyper w-5">${idx+1}</div>
-                    <div class="flex-1 text-[10px] text-slate-400 font-semibold truncate">${item.text}</div>
-                    <button onclick="removeFrag(${item.id})" class="text-accent/30 group-hover:text-accent">
-                        <iconify-icon icon="solar:trash-bin-trash-bold" class="text-xl"></iconify-icon>
-                    </button>`;
+                d.className = "flex items-center gap-3 bg-white/5 p-4 rounded-xl";
+                d.innerHTML = `<div class="flex-1 text-[11px] text-slate-400 truncate">${i.text}</div>
+                <button onclick="state.buffer=state.buffer.filter(x=>x.id!==${i.id});openManage();renderData();" class="text-accent/50"><iconify-icon icon="solar:trash-bin-trash-bold"></iconify-icon></button>`;
                 list.appendChild(d);
             });
         }
 
-        function closeManage() { document.getElementById('manage-modal').classList.replace('flex', 'hidden'); }
-        function removeFrag(id) { state.buffer = state.buffer.filter(x => x.id !== id); openManage(); renderDataGrid(); }
-        function clearData() { state.buffer = []; renderDataGrid(); }
-
         function compileToChat() {
             if(state.buffer.length === 0) return;
-            const sum = "**HARVEST REPORT**\n\n" + state.buffer.map((x, i) => `${i+1}. ${x.text}`).join('\n') + "\n\n---\n*System: Ringkas temuan di atas.*";
-            closeManage(); switchView('chat');
-            document.getElementById('chat-input').value = sum;
+            const s = "**HASIL PANEN DATA**\n\n" + state.buffer.map((x,i)=>`${i+1}. ${x.text}`).join('\n') + "\n\n---\n*Instruksi: Analisis data di atas.*";
+            document.getElementById('manage-modal').classList.add('hidden');
+            switchView('chat');
+            document.getElementById('chat-input').value = s;
             handleSend();
         }
 
@@ -436,3 +381,4 @@
     </script>
 </body>
 </html>
+
